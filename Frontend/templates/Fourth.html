@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!--      <meta> http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+
+    <title>Furniture</title>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><a href="First.html">
+                <h1>Furniture</h1>
+            </a></div>
+        <ul class="menu">
+            <li><a href="First.html">Home</a> </li>
+            <li><a href="Second.html">Products</a> </li>
+            <li><a href="">Contact Us</a> </li>
+            <li><a href="Fourth.html">Account</a> </li>
+            <!--          <li><a href="Third.html"><i class="fas fa-shopping-cart"><span >3</span></i></a>-->
+            <li><a href="Third.html"><i class="fa badge fa-lg" value=3 style="">&#xf07a;</i></a>
+            </li>
+        </ul>
+
+        <div class="menu-btn">
+            <i class="fa fa-bars"></i>
+        </div>
+    </nav>
+
+    <div class="account-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <img src="img16.jpeg" width="100%">
+                </div>
+                <div class="col-2">
+                    <div class="form-container">
+                        <div class="form-btn">
+                            <span onclick="login()">Login</span>
+                            <span onclick="register()">Register</span>
+                            <hr id="Indica$(".navbar .menu").toggleClass("active");
+                            $(".menu-btn i").toggleClass("active");tor">
+                        </div>
+                        <form id="LoginForm">
+                            <input type="text" id="LoginFormUser" placeholder="Username" class="box">
+                            <input type="password" id="LoginFormUser1" placeholder="Password" class="box">
+                            <button type="submit" class="btn" >Login</button>
+                            <a href="">Forgot Password</a>
+                        </form>
+                        <form id="RegForm">
+                            <input type="text" id="Reg1" placeholder="Username" class="box">
+                            <input type="email" id="Reg2" placeholder="Email" class="box">
+                            <input type="password" id="Reg3" placeholder="New Password" class="box">
+                            <input type="password" id="Reg4" placeholder="Confirm Password" class="box">
+                            <button type="submit" class="btn">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="ft">
+        <p>Copyright at <a href="">Furniture</a> </p>
+    </footer>
+
+    <!--jquery-->
+    <script>
+        $(".menu-btn").click(function () {
+        $(".navbar .menu").toggleClass("active");
+        $(".menu-btn i").toggleClass("active");
+        });
+    </script>
+
+    <script>
+        var LoginForm = document.getElementById("LoginForm");
+        var RegForm = document.getElementById("RegForm");
+        var Indicator = document.getElementById("Indicator");
+
+        function login() {
+            RegForm.style.transform = "translateX(0px)";
+            LoginForm.style.transform = "translateX(0px)";
+            Indicator.style.transform = "translateX(10px)";
+        }
+        function register() {
+            RegForm.style.transform = "translateX(-250px)";
+            LoginForm.style.transform = "translateX(-280px)";
+            Indicator.style.transform = "translateX(130px)";
+        }
+        
+
+
+    </script>
+
+    <script>
+        var form = document.getElementById("LoginForm")
+        form.addEventListener('submit',function(x)
+        {
+            x.preventDefault()
+
+            var username = document.getElementById("LoginFormUser").value
+            var password = document.getElementById("LoginFormUser1").value
+
+            fetch("http://192.168.98.74:8000/api/token/",{
+                method:'POST',
+                body:JSON.stringify({
+                    username:username,
+                    password:password,
+                }),
+                headers:{
+                    "Content-type":"application/json; charset=UTF-8"
+                    }
+                })
+                .then(function(response){
+                    return response.json()
+                }).then(function(data){
+                    console.log(data);
+                    localStorage.setItem('data', JSON.stringify(data));
+                    x=localStorage.getItem('data');
+                    console.log(x);
+                    return x
+                    
+                }).then(function(x){
+                    window.location = "First.html";
+                    
+                })
+            })
+    </script>
+
+<script>
+    var form = document.getElementById("RegForm")
+    form.addEventListener('submit',function(y)
+    {
+        y.preventDefault()
+
+        var username = document.getElementById("Reg1").value
+        var email = document.getElementById("Reg2").value
+        var newpassword = document.getElementById("Reg3").value
+        var confirmpassword = document.getElementById("Reg4").value
+
+        fetch("http://192.168.98.74:8000//register/",{
+            method:'POST',
+            body:JSON.stringify({
+                first_name:"abc",
+                last_name:"xyz",
+                username:username,
+                email:email,
+                password:newpassword,
+                password2:confirmpassword,
+            }),
+            // mode:"cors",
+            headers:{
+                "Content-type":"application/json; charset=UTF-8"
+                }
+            })
+            .then(function(response){
+                return response.json()
+            }).then(function(data){
+                console.log(data);
+                localStorage.setItem('data', JSON.stringify(data));
+                x=localStorage.getItem('data');
+                console.log(x);
+            })
+        })
+</script>
+
+</body>
+
+</html>

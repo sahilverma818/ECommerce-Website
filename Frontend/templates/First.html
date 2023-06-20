@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!--      <meta> http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Furniture</title>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><a href="First.html">
+                <h1>Furniture</h1>
+            </a></div>
+        <ul class="menu">
+            <li><a href="First.html">Home</a> </li>
+            <li><a href="Second.html">Products</a> </li>
+            <li><a href="">Contact Us</a> </li>
+            <li><a href="Fourth.html">Account</a> </li>
+            <!--          <li><a href="Third.html"><i class="fas fa-shopping-cart"><span >3</span></i></a>-->
+            <li><a href="Third.html"><i class="fa badge fa-lg" value=3 style="">&#xf07a;</i></a>
+            </li>
+        </ul>
+
+        <div class="menu-btn">
+            <i class="fa fa-bars"></i>
+        </div>
+    </nav>
+
+    <section class="content">
+        <h1>New Arrivals For Furnitures</h1>
+        <p>Get The All Types Of Furnitures Here</p>
+        <button><a href="#hg">Shop Now</a></button>
+    </section>
+
+    <h1 class="pheading" id="hg">Our Latest Products</h1>
+
+    <!--<section class="sec">
+      <div class="products">
+
+          <div class="card">
+              <div class="img"><img src="img9.jpeg" alt=""></div>
+              <div class="desc">Furniture</div>
+              <div class="title">Sofa</div>
+              <div class="box">
+                  <div class="price">$500</div>
+                  <button class="btn"><a href="Second.html">Buy Now</a></button>
+              </div>
+          </div>
+
+          <div class="card">
+              <div class="img"><img src="img2.jpeg" alt=""></div>
+              <div class="desc">Furniture</div>
+              <div class="title">Bed</div>
+              <div class="box">
+                  <div class="price">$1500</div>
+                  <button class="btn">Buy Now</button>
+              </div>
+          </div>
+          <div class="card">
+              <div class="img"><img src="img3.jpeg" alt=""></div>
+              <div class="desc">Furniture</div>
+              <div class="title">Sofa</div>
+              <div class="box">
+                  <div class="price">$600</div>
+                  <button class="btn">Buy Now</button>
+              </div>
+          </div>
+          <div class="card">
+              <div class="img"><img src="img4.jpeg" alt=""></div>
+              <div class="desc">Furniture</div>
+              <div class="title">Bed</div>
+              <div class="box">
+                  <div class="price">$900</div>
+                  <button class="btn">Buy Now</button>
+              </div>
+          </div>
+          <div class="card">
+              <div class="img"><img src="img5.jpeg" alt=""></div>
+              <div class="desc">Furniture</div>
+              <div class="title">Bed + Dressing Table</div>
+              <div class="box">
+                  <div class="price">$2000</div>
+                  <button class="btn">Buy Now</button>
+              </div>
+          </div>
+          <div class="card">
+              <div class="img"><img src="img6.jpeg" alt=""></div>
+              <div class="desc">Furniture</div>
+              <div class="title">Sofa</div>
+              <div class="box">
+                  <div class="price">$400</div>
+                  <button class="btn">Buy Now</button>
+              </div>
+          </div>
+          <div class="card">
+              <div class="img"><img src="img7.jpeg" alt=""></div>
+              <div class="desc">Furniture</div>
+              <div class="title">Bed + Tool</div>
+              <div class="box">
+                  <div class="price">$1000</div>
+                  <button class="btn">Buy Now</button>
+              </div>
+          </div>
+      </div>
+  </section>-->
+
+    <section class="sec">
+        <div class="products" id="myTable"></div>
+    </section>
+
+    <script>
+        x = JSON.parse(localStorage.getItem('data'));
+        console.log(x)
+        var token = 'Bearer ' + x.access;
+        console.log(token);
+        fetch('http://192.168.98.74:8000/all/', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            }
+        }).then((data) => {
+            console.log(data);
+            return data.json();
+        }).then((completedata) => {
+            console.log(completedata)
+
+            let data1 = "";
+            completedata.map((value) => {
+                let photo = `${value.product_img}`;
+                let text1 = "http://192.168.98.74:8000/";
+                let result = text1.concat(photo);
+                data1 += `<div class="card">
+                <div class="img" ><img id="Img" src=${result}></div>
+                <div class="desc" id="Desc">${value.product_category}</div>
+                <div class="title" id="Title">${value.product_name}</div>
+                <div class="box">
+                    <div class="price" id="Price">$${value.product_price}</div>
+                    <button class="btn" onclick="handleData()">
+                        </button>
+                        </div>
+                        </div>`
+            });
+            document.getElementById("myTable").innerHTML = data1;
+        }).catch((err) => {
+            console.log(err);
+        })
+        // <a href="Second.html">Buy Now</a>
+    </script>
+
+
+    <script>
+        function handleData() {
+            const img = document.getElementById('Img').value
+            const desc = document.getElementById('Desc').value;
+            const title = document.getElementById('Title').value;
+            const price = document.getElementById('Price').value;
+            console.log({ img }, { desc });
+
+            localStorage.setItem("IMAGE", img);
+            localStorage.setItem("DESC", desc);
+            localStorage.setItem("TITLE", title);
+            localStorage.setItem("PRICE", price);
+
+            return;
+        }
+        console.log(document.getElementById('Img').value)
+    </script>
+
+    <footer>
+        <p>Copyright at <a href="">Furniture</a> </p>
+    </footer>
+
+    <!--jquery-->
+    <script>
+        $(".menu-btn").click(function () {
+            $(".navbar .menu").toggleClass("active");
+            $(".menu-btn i").toggleClass("active");
+        });
+    </script>
+
+
+</body>
+
+</html>

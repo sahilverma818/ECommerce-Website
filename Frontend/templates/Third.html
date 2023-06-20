@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!--      <meta> http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Furniture</title>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><a href="First.html">
+                <h1>Furniture</h1>
+            </a></div>
+        <ul class="menu">
+            <li><a href="First.html">Home</a> </li>
+            <li><a href="Second.html">Products</a> </li>
+            <li><a href="">Contact Us</a> </li>
+            <li><a href="Fourth.html">Account</a> </li>
+            <!-- <li><a href="Third.html"><i class="fas fa-shopping-cart"><span >3</span></i></a> -->
+            <li><a href="Third.html"><i class="fa badge fa-lg" value=3 style="">&#xf07a;</i></a>
+            </li>
+        </ul>
+
+        <div class="menu-btn">
+            <i class="fa fa-bars"></i>
+        </div>
+    </nav>
+
+    <div class="small-container cart-page">
+
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+            <tbody id="myTable">
+            </tbody>
+        </table>
+
+        <script>
+            x = JSON.parse(localStorage.getItem('data'));
+            var token = 'Bearer ' + x.access;
+            console.log(token);
+            fetch('http://192.168.98.74:8000//cartlist/', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': token,
+                }
+            }).then((data) => {
+                console.log(data);
+                return data.json();
+            }).then((completedata) => {
+                console.log(completedata)
+                let subtotal = 0;
+
+                let data1 = "";
+                completedata.map((value) => {
+                    let values = value?.product_id;
+                    let photo = `${values.product_img}`;
+                    let text1 = "http://192.168.98.74:8000/";
+                    let result = text1.concat(photo);
+                    let total = (value.qty) * (values.product_price)
+                    data1 += `<tr>
+                    <td><div class="cart-info">
+                 
+                    <img src= ${result}>
+                      <div class="p">
+                          <p>${values.product_name}</p>
+                          <small id='price_prod'>Price: ${values.product_price}</small>
+                          <br>
+                          <a href="">Remove</a>
+                          </div>
+                          </div></td>
+                          <td><input type="number" value=${value.qty} id='qty_prod' </td>
+                          <td >${total}</td>
+                      </tr>`
+                    subtotal = subtotal + total;
+                });
+                document.getElementById("subTotal").innerText = `$${subtotal}`
+                document.getElementById("total").innerText = `$${subtotal}`
+                document.getElementById("myTable").innerHTML = data1;
+            }).catch((err) => {
+                console.log(err);
+            })
+        </script>
+
+
+        <!-- <script>
+
+            var Data = [
+                { 'image': 'img9.jpeg', 'name': 'Red Fabric Sofa', 'qty': 5, 'price': 600 },
+                { 'image': 'img6.jpeg', 'name': 'Red Fabric Sofa', 'qty': 4, 'price': 500 },
+                { 'image': 'img1.jpeg', 'name': 'Red Fabric Sofa', 'qty': 3, 'price': 400 },
+                { 'image': 'img5.jpeg', 'name': 'Red Fabric Sofa', 'qty': 5, 'price': 200 },
+            ]
+            buildTable(Data)
+            function buildTable(data) {
+                var table = document.getElementById('myTable')
+
+                for (var i = 0; i < data.length; i++) {
+                    Total = (Data[i].qty) * (Data[i].price)
+                    var row = `<tr>
+              <td>
+                  <div class="cart-info">
+                      <img src=${Data[i].image}>
+                      <div>
+                          <p>${Data[i].name}</p>
+                          <small id='price_prod'>Price: ${Data[i].price}</small>
+                          <br>
+                          <a href="">Remove</a>
+                      </div>
+                  </div>
+              </td>
+              <td><input type="number" value=${Data[i].qty} id='qty_prod'></td>
+              <td >${Total}</td>
+
+
+					  </tr>`
+
+                    table.innerHTML += row
+                }
+            }
+
+        </script> -->
+
+        <div id="root"></div>
+
+
+        <div class="total-price">
+
+            <table>
+                <tr>
+                    <td>Subtotal</td>
+                    <td id="subTotal"></td>
+                </tr>
+                <tr>
+                    <td>Tax</td>
+                    <td>$00</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td id="total"></td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="buy">
+            <a href="Fourth.html" class="btn">Proceed To Checkout</a>
+        </div>
+
+    </div>
+
+
+
+
+    <footer class="ft">
+        <p>Copyright at <a href="">Furniture</a> </p>
+    </footer>
+
+    <!--jquery-->
+    <script>
+        $(".menu-btn").click(function () {
+            $(".navbar .menu").toggleClass("active");
+            $(".menu-btn i").toggleClass("active");
+        });
+    </script>
+
+</body>
+
+</html>

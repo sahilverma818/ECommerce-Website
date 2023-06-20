@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+<!--      <meta> http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Furniture</title>
+  </head>
+  <body>
+
+  <nav class="navbar">
+      <div class="logo"><a href="First.html"> <h1>Furniture</h1></a></div>
+      <ul class="menu">
+          <li><a href="First.html">Home</a> </li>
+          <li><a href="Second.html">Products</a> </li>
+          <li><a href="">Contact Us</a> </li>
+          <li><a href="Fourth.html">Account</a> </li>
+<!--          <li><a href="Third.html"><i class="fas fa-shopping-cart"><span >3</span></i></a>-->
+          <li><a href="Third.html"><i class="fa badge fa-lg" value=3 style="">&#xf07a;</i></a>
+          </li>
+      </ul>
+
+      <div class="menu-btn">
+          <i class="fa fa-bars"></i>
+      </div>
+  </nav>
+
+  <div class="small-container single-product">
+      <div class="row">
+          <div class="col-2">
+              <img src="" width="100%" id="ProductImg">
+
+              <div class="small-img-row">
+                  <div class="small-img-col">
+                      <img src="img9.jpeg" width="100%" class="small-img">
+                  </div>
+                  <div class="small-img-col">
+                      <img src="img10.jpeg" width="100%" class="small-img">
+                  </div>
+                  <div class="small-img-col">
+                      <img src="img11.jpeg" width="100%" class="small-img">
+                  </div>
+                  <div class="small-img-col">
+                      <img src="img12.jpeg" width="100%" class="small-img">
+                  </div>
+              </div>
+          </div>
+          <div class="col-2">
+              <h1 id="Title2"></h1>
+              <h4 id="Price2"></h4>
+              <input type="number" value="1">
+              <a href="Third.html" class="btn">Add To Cart</a>
+              <h3>Product Details</h3>
+              <br>
+              <ul>
+                  <li><p id="Desc2"></p></li>
+                  <li><p id="Desc2"></p></li>
+                  <li><p id="Desc2"></p></li>
+              </ul>
+              <br>
+              <br>
+              <h3>Available Offers</h3>
+              <br>
+              <ul>
+                  <li><p>Get 5% instant discount using UPI .</p></li>
+                  <li><p>Get upto 10% cashback on using SBI card.</p></li>
+                  <li><p>Get upto $10 cashback on using HDFC card.</p></li>
+              </ul>
+          </div>
+      </div>
+  </div>
+
+  <script>
+
+    window.addEventListener('load',() => {
+
+    const img = localStorage.getItem("IMAGE");
+    const desc = localStorage.getItem("DESC");
+    const title = localStorage.getItem("TITLE");
+    const price = localStorage.getItem("PRICE");
+
+    document.getElementById('ProductImg').innerHTML = img;
+    document.getElementById('Desc2').innerHTML = desc;
+    document.getElementById('Title2').innerHTML = title;
+    document.getElementById('Price2').innerHTML = price;
+})
+  </script>
+
+
+  <footer class="ft">
+      <p>Copyright at <a href="">Furniture</a> </p>
+  </footer>
+
+<!--jquery-->
+<script>
+    $(".menu-btn").click(function(){
+        $(".navbar .menu").toggleClass("active");
+        $(".menu-btn i").toggleClass("active");
+    });
+</script>
+
+
+  <script>
+      var ProductImg = document.getElementById("ProductImg");
+      var SmallImg = document.getElementsByClassName("small-img");
+
+      SmallImg[0].onclick = function()
+      {
+        ProductImg.src = SmallImg[0].src;
+      }
+      SmallImg[1].onclick = function()
+      {
+        ProductImg.src = SmallImg[1].src;
+      }
+      SmallImg[2].onclick = function()
+      {
+        ProductImg.src = SmallImg[2].src;
+      }
+      SmallImg[3].onclick = function()
+      {
+        ProductImg.src = SmallImg[3].src;
+      }
+  </script>
+
+
+  </body>
+</html>
